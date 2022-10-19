@@ -1,6 +1,6 @@
 // Code generated using the program found in 'cmd/fitgen/main.go'. DO NOT EDIT.
 
-// SDK Version: 21.84
+// SDK Version: 21.90
 
 package fit
 
@@ -4680,32 +4680,16 @@ func (x *WorkoutStepMsg) GetCustomTargetValueHigh() interface{} {
 // If none of the reference field/value combinations are true
 // then the main field is returned.
 func (x *WorkoutStepMsg) GetSecondaryTargetValue() interface{} {
-	switch {
-	case x.TargetType == WktStepTargetSpeed:
+	switch x.SecondaryTargetType {
+	case WktStepTargetSpeed:
 		return uint32(x.SecondaryTargetValue)
-	case x.TargetType == WktStepTargetHeartRate:
+	case WktStepTargetHeartRate:
 		return uint32(x.SecondaryTargetValue)
-	case x.TargetType == WktStepTargetCadence:
+	case WktStepTargetCadence:
 		return uint32(x.SecondaryTargetValue)
-	case x.TargetType == WktStepTargetPower:
+	case WktStepTargetPower:
 		return uint32(x.SecondaryTargetValue)
-	case x.DurationType == WktStepDurationRepeatUntilStepsCmplt:
-		return uint32(x.SecondaryTargetValue)
-	case x.DurationType == WktStepDurationRepeatUntilTime:
-		return float64(x.SecondaryTargetValue) / 1000
-	case x.DurationType == WktStepDurationRepeatUntilDistance:
-		return float64(x.SecondaryTargetValue) / 100
-	case x.DurationType == WktStepDurationRepeatUntilCalories:
-		return uint32(x.SecondaryTargetValue)
-	case x.DurationType == WktStepDurationRepeatUntilHrLessThan:
-		return WorkoutHr(x.SecondaryTargetValue)
-	case x.DurationType == WktStepDurationRepeatUntilHrGreaterThan:
-		return WorkoutHr(x.SecondaryTargetValue)
-	case x.DurationType == WktStepDurationRepeatUntilPowerLessThan:
-		return WorkoutPower(x.SecondaryTargetValue)
-	case x.DurationType == WktStepDurationRepeatUntilPowerGreaterThan:
-		return WorkoutPower(x.SecondaryTargetValue)
-	case x.TargetType == WktStepTargetSwimStroke:
+	case WktStepTargetSwimStroke:
 		return SwimStroke(x.SecondaryTargetValue)
 	default:
 		return x.SecondaryTargetValue
@@ -4717,7 +4701,7 @@ func (x *WorkoutStepMsg) GetSecondaryTargetValue() interface{} {
 // If none of the reference field/value combinations are true
 // then the main field is returned.
 func (x *WorkoutStepMsg) GetSecondaryCustomTargetValueLow() interface{} {
-	switch x.TargetType {
+	switch x.SecondaryTargetType {
 	case WktStepTargetSpeed:
 		return float64(x.SecondaryCustomTargetValueLow) / 1000
 	case WktStepTargetHeartRate:
@@ -4736,7 +4720,7 @@ func (x *WorkoutStepMsg) GetSecondaryCustomTargetValueLow() interface{} {
 // If none of the reference field/value combinations are true
 // then the main field is returned.
 func (x *WorkoutStepMsg) GetSecondaryCustomTargetValueHigh() interface{} {
-	switch x.TargetType {
+	switch x.SecondaryTargetType {
 	case WktStepTargetSpeed:
 		return float64(x.SecondaryCustomTargetValueHigh) / 1000
 	case WktStepTargetHeartRate:
@@ -4996,51 +4980,63 @@ func NewBloodPressureMsg() *BloodPressureMsg {
 
 // MonitoringInfoMsg represents the monitoring_info FIT message type.
 type MonitoringInfoMsg struct {
-	Timestamp      time.Time
-	LocalTimestamp time.Time // Use to convert activity timestamps to local time if device does not support time zone and daylight savings time correction.
+	Timestamp            time.Time
+	LocalTimestamp       time.Time // Use to convert activity timestamps to local time if device does not support time zone and daylight savings time correction.
+	RestingMetabolicRate uint16
 }
 
 // NewMonitoringInfoMsg returns a monitoring_info FIT message
 // initialized to all-invalid values.
 func NewMonitoringInfoMsg() *MonitoringInfoMsg {
 	return &MonitoringInfoMsg{
-		Timestamp:      timeBase,
-		LocalTimestamp: timeBase,
+		Timestamp:            timeBase,
+		LocalTimestamp:       timeBase,
+		RestingMetabolicRate: 0xFFFF,
 	}
 }
 
 // MonitoringMsg represents the monitoring FIT message type.
 type MonitoringMsg struct {
-	Timestamp       time.Time   // Must align to logging interval, for example, time must be 00:00:00 for daily log.
-	DeviceIndex     DeviceIndex // Associates this data to device_info message. Not required for file with single device (sensor).
-	Calories        uint16      // Accumulated total calories. Maintained by MonitoringReader for each activity_type. See SDK documentation
-	Distance        uint32      // Accumulated distance. Maintained by MonitoringReader for each activity_type. See SDK documentation.
-	Cycles          uint32      // Accumulated cycles. Maintained by MonitoringReader for each activity_type. See SDK documentation.
-	ActiveTime      uint32
-	ActivityType    ActivityType
-	ActivitySubtype ActivitySubtype
-	Distance16      uint16
-	Cycles16        uint16
-	ActiveTime16    uint16
-	LocalTimestamp  time.Time // Must align to logging interval, for example, time must be 00:00:00 for daily log.
+	Timestamp               time.Time   // Must align to logging interval, for example, time must be 00:00:00 for daily log.
+	DeviceIndex             DeviceIndex // Associates this data to device_info message. Not required for file with single device (sensor).
+	Calories                uint16      // Accumulated total calories. Maintained by MonitoringReader for each activity_type. See SDK documentation
+	Distance                uint32      // Accumulated distance. Maintained by MonitoringReader for each activity_type. See SDK documentation.
+	Cycles                  uint32      // Accumulated cycles. Maintained by MonitoringReader for each activity_type. See SDK documentation.
+	ActiveTime              uint32
+	ActivityType            ActivityType
+	ActivitySubtype         ActivitySubtype
+	Distance16              uint16
+	Cycles16                uint16
+	ActiveTime16            uint16
+	LocalTimestamp          time.Time // Must align to logging interval, for example, time must be 00:00:00 for daily log.
+	ActiveCalories          uint16
+	HeartRate               uint8
+	Intensity               uint8
+	ModerateActivityMinutes uint16
+	VigorousActivityMinutes uint16
 }
 
 // NewMonitoringMsg returns a monitoring FIT message
 // initialized to all-invalid values.
 func NewMonitoringMsg() *MonitoringMsg {
 	return &MonitoringMsg{
-		Timestamp:       timeBase,
-		DeviceIndex:     0xFF,
-		Calories:        0xFFFF,
-		Distance:        0xFFFFFFFF,
-		Cycles:          0xFFFFFFFF,
-		ActiveTime:      0xFFFFFFFF,
-		ActivityType:    0xFF,
-		ActivitySubtype: 0xFF,
-		Distance16:      0xFFFF,
-		Cycles16:        0xFFFF,
-		ActiveTime16:    0xFFFF,
-		LocalTimestamp:  timeBase,
+		Timestamp:               timeBase,
+		DeviceIndex:             0xFF,
+		Calories:                0xFFFF,
+		Distance:                0xFFFFFFFF,
+		Cycles:                  0xFFFFFFFF,
+		ActiveTime:              0xFFFFFFFF,
+		ActivityType:            0xFF,
+		ActivitySubtype:         0xFF,
+		Distance16:              0xFFFF,
+		Cycles16:                0xFFFF,
+		ActiveTime16:            0xFFFF,
+		LocalTimestamp:          timeBase,
+		ActiveCalories:          0xFFFF,
+		HeartRate:               0xFF,
+		Intensity:               0xFF,
+		ModerateActivityMinutes: 0xFFFF,
+		VigorousActivityMinutes: 0xFFFF,
 	}
 }
 
@@ -5077,12 +5073,24 @@ func (x *MonitoringMsg) GetActiveTimeScaled() float64 {
 	return float64(x.ActiveTime) / 1000
 }
 
+// GetIntensityScaled returns Intensity
+// with scale and any offset applied. NaN is returned if the
+// field has an invalid value (i.e. has not been set).
+func (x *MonitoringMsg) GetIntensityScaled() float64 {
+	if x.Intensity == 0xFF {
+		return math.NaN()
+	}
+	return float64(x.Intensity) / 10
+}
+
 // GetCycles returns the appropriate Cycles
 // subfield if a matching reference field/value combination is found.
 // If none of the reference field/value combinations are true
 // then the main field is returned.
 func (x *MonitoringMsg) GetCycles() interface{} {
 	switch x.ActivityType {
+	case ActivityTypeWalking, ActivityTypeRunning:
+		return float64(x.Cycles) / 1
 	case ActivityTypeCycling, ActivityTypeSwimming:
 		return float64(x.Cycles) / 2
 	default:

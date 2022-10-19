@@ -11,6 +11,13 @@ for information about profile generation.
 
 * FIT SDK Zip or workbook file available.
 
+## Build
+
+```shell
+cd ./fit/cmd/fitgen
+go build -o fitgen
+```
+
 ## Usage
 
 ```shell
@@ -23,6 +30,12 @@ usage: fitgen [flags] [path to sdk zip, xls or xlsx file] [output directory]
         add generation timestamp to generated code
   -verbose
         print verbose debugging output for profile parsing and code generation
+```
+
+### Example
+
+```shell
+./fit/cmd/fitgen/fitgen -sdk 21.90 internal/profile/sdk/21.94.xlsx ./fit
 ```
 
 ## Global and product profiles
