@@ -1,4 +1,4 @@
-module github.com/xmidt/fit
+module github.com/tormoder/fit
 
 go 1.15
 
