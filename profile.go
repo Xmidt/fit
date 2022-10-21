@@ -1,6 +1,6 @@
 // Code generated using the program found in 'cmd/fitgen/main.go'. DO NOT EDIT.
 
-// SDK Version: 21.90
+// SDK Version: 21.94
 
 package fit
 
@@ -15,7 +15,7 @@ const (
 	ProfileMajorVersion = 21
 
 	// ProfileMinorVersion is the current supported profile minor version of the FIT SDK.
-	ProfileMinorVersion = 90
+	ProfileMinorVersion = 94
 )
 
 var knownMsgNums = map[MesgNum]bool{
@@ -1054,10 +1054,11 @@ var _fields = [...][256]*field{
 		10:  {10, 10, types.Fit(4), 1},
 		11:  {11, 11, types.Fit(134), 1},
 		19:  {12, 19, types.Fit(4), 1},
-		27:  {13, 27, types.Fit(2), 1},
-		28:  {14, 28, types.Fit(2), 1},
-		33:  {15, 33, types.Fit(4), 1},
-		34:  {16, 34, types.Fit(4), 1},
+		26:  {13, 26, types.Fit(4), 1},
+		27:  {14, 27, types.Fit(2), 1},
+		28:  {15, 28, types.Fit(2), 1},
+		33:  {16, 33, types.Fit(4), 1},
+		34:  {17, 34, types.Fit(4), 1},
 	},
 
 	MesgNumHr: {

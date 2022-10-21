@@ -1,6 +1,6 @@
 // Code generated using the program found in 'cmd/fitgen/main.go'. DO NOT EDIT.
 
-// SDK Version: 21.90
+// SDK Version: 21.94
 
 package fit
 
@@ -3519,7 +3519,7 @@ func (x *AviationAttitudeMsg) GetPitchScaled() []float64 {
 	}
 	s := make([]float64, len(x.Pitch))
 	for i, v := range x.Pitch {
-		s[i] = float64(v) / 10430.38
+		s[i] = float64(v) / 10430.379999999999
 	}
 	return s
 }
@@ -3533,7 +3533,7 @@ func (x *AviationAttitudeMsg) GetRollScaled() []float64 {
 	}
 	s := make([]float64, len(x.Roll))
 	for i, v := range x.Roll {
-		s[i] = float64(v) / 10430.38
+		s[i] = float64(v) / 10430.379999999999
 	}
 	return s
 }
@@ -3589,7 +3589,7 @@ func (x *AviationAttitudeMsg) GetTrackScaled() []float64 {
 	}
 	s := make([]float64, len(x.Track))
 	for i, v := range x.Track {
-		s[i] = float64(v) / 10430.38
+		s[i] = float64(v) / 10430.379999999999
 	}
 	return s
 }
@@ -5010,6 +5010,7 @@ type MonitoringMsg struct {
 	ActiveTime16            uint16
 	LocalTimestamp          time.Time // Must align to logging interval, for example, time must be 00:00:00 for daily log.
 	ActiveCalories          uint16
+	Timestamp16             uint16
 	HeartRate               uint8
 	Intensity               uint8
 	ModerateActivityMinutes uint16
@@ -5033,6 +5034,7 @@ func NewMonitoringMsg() *MonitoringMsg {
 		ActiveTime16:            0xFFFF,
 		LocalTimestamp:          timeBase,
 		ActiveCalories:          0xFFFF,
+		Timestamp16:             0xFFFF,
 		HeartRate:               0xFF,
 		Intensity:               0xFF,
 		ModerateActivityMinutes: 0xFFFF,
