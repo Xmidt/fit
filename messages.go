@@ -3519,7 +3519,7 @@ func (x *AviationAttitudeMsg) GetPitchScaled() []float64 {
 	}
 	s := make([]float64, len(x.Pitch))
 	for i, v := range x.Pitch {
-		s[i] = float64(v) / 10430.379999999999
+		s[i] = float64(v) / 10430.38
 	}
 	return s
 }
@@ -3533,7 +3533,7 @@ func (x *AviationAttitudeMsg) GetRollScaled() []float64 {
 	}
 	s := make([]float64, len(x.Roll))
 	for i, v := range x.Roll {
-		s[i] = float64(v) / 10430.379999999999
+		s[i] = float64(v) / 10430.38
 	}
 	return s
 }
@@ -3589,7 +3589,7 @@ func (x *AviationAttitudeMsg) GetTrackScaled() []float64 {
 	}
 	s := make([]float64, len(x.Track))
 	for i, v := range x.Track {
-		s[i] = float64(v) / 10430.379999999999
+		s[i] = float64(v) / 10430.38
 	}
 	return s
 }

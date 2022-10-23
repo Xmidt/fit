@@ -35,7 +35,7 @@ usage: fitgen [flags] [path to sdk zip, xls or xlsx file] [output directory]
 ### Example
 
 ```shell
-./fit/cmd/fitgen/fitgen -sdk 21.90 internal/profile/sdk/21.94.xlsx ./fit
+./fit/cmd/fitgen/fitgen -sdk 21.94 ./fit/cmd/fitgen/internal/profile/sdk/21.94.xlsx ./fit
 ```
 
 ## Global and product profiles
